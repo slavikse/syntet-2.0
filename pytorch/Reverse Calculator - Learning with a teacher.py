@@ -2,35 +2,46 @@ import os
 os.environ["KERAS_BACKEND"] = "torch"
 import keras
 import numpy as np
-import matplotlib.pyplot as plt
 
-# Добавить промпт
-# название: обратный калькулятор - обучение с учителем
-# запушить этот файл в гитхаб
+# The algorithm will predict the operation (one of: + - / *)
+#   produced by two numbers using the result of the calculation.
+# To do this, enter 3 numbers (positive integers).
+# Examples:
+# 4 6 10 - predicts addition (+), 4+6=10.
+# 4 3 1 - predicts minus (-), 4-3=1
+# 20 10 200 - predicts multiplication (*), 20*10=200.
+# 6 3 3 - predicts division (/), 6/3=3
+
+print('Data generation and training preparation...')
 
 number_low = 1
-number_high = 10 # не включая, т.е. до 9
-normalizer = number_high
+number_high = 10 # not including, i.e. up to 9
 signs = ['+', '*', '-', '/']
 
 learning_rate = 0.01
-batch_size = 32 # default: 32
-train_sets = 1_000_000
-epochs = 1
+batch_size = 64 # default: 32
+train_sets = 800_000
+units = 6**2
+epochs = 3
+dropout = 0.2
 passages = 1
 reward = 1.0
 
 model = keras.Sequential()
 
 model.add(keras.layers.Dense(
-  units=10**2,
+  units=units,
   activation=keras.activations.relu,
 ))
 
+model.add(keras.layers.Dropout(dropout))
+
 model.add(keras.layers.Dense(
-  units=10**2,
+  units=units,
   activation=keras.activations.relu,
 ))
+
+model.add(keras.layers.Dropout(dropout))
 
 model.add(keras.layers.Dense(
   units=len(signs),
@@ -45,11 +56,13 @@ model.compile(
   ],
 )
 
-def get_number(min=number_low, max=number_high):
-  return np.random.randint(min, max)
+
+def get_random_number():
+  return np.random.randint(number_low, number_high)
+
 
 def get_sign():
-  return signs[get_number(0, len(signs))]
+  return signs[np.random.randint(0, len(signs))]
 
 
 def calc(sign, x, y):
@@ -75,15 +88,15 @@ def gen_train_sets():
   inputs = []
   labels = []
   for _ in range(train_sets):
-    input_a = get_number()
-    input_b = get_number()
+    input_a = get_random_number()
+    input_b = get_random_number()
     sign = get_sign()
     result = calc(sign, input_a, input_b)
 
     inputs.append([
-      input_a / normalizer,
-      input_b / normalizer,
-      result / (normalizer ** 2),
+      input_a,
+      input_b,
+      result,
     ])
 
     labels.append(
@@ -102,9 +115,6 @@ for _ in range(passages):
     labels,
     batch_size=batch_size,
     epochs=epochs,
-    callbacks=[
-      # keras.callbacks.EarlyStopping(baseline=0.01)
-    ],
   )
 
 model.summary()
@@ -134,7 +144,7 @@ data = [
     'y': 4,
     'result': 2,
   },
-  # Ниже данные, которые ML не могла видеть - обучающие наборы ограничены для x,y числом 9.
+  # Below is the data that ML could not see - the training sets are limited to the number 9 for x,y.
   {
     'sign': '+',
     'x': 12,
@@ -159,25 +169,45 @@ data = [
     'y': 30,
     'result': 2,
   },
+  {
+    'sign': '+',
+    'x': 1267,
+    'y': 8589,
+    'result': 9856,
+  },
+  {
+    'sign': '*',
+    'x': 1267,
+    'y': 8314,
+    'result': 10_533_838,
+  },
 ]
 
-for val in data:
+def predict(val):
   x_test = keras.ops.array([[
-    val['x'] / normalizer,
-    val['y'] / normalizer,
-    val['result'] / (normalizer ** 2),
+    val['x'],
+    val['y'],
+    val['result'],
   ]])
   predictions = model.predict(x_test)
   sign = signs[predictions.argmax()]
+
   print('expect:', val['sign'], 'predict:', sign, '#', val['x'], sign, val['y'], '=', val['result'])
 
 
-def show_plot():
-  plt.plot(history.history['loss'], label='MAE (training data)')
-  plt.title('MAE for Chennai Reservoir Levels')
-  plt.ylabel('MAE value')
-  plt.xlabel('No. epoch')
-  plt.legend(loc="upper left")
-  plt.show()
+for val in data:
+  predict(val)
 
-show_plot()
+
+while True:
+  print('enter via enter...')
+  x = int(input('Enter a positive integer: '))
+  y = int(input('Enter a positive integer: '))
+  result = int(input('Enter result: '))
+
+  predict({
+    'sign': '?',
+    'x': x,
+    'y': y,
+    'result': result,
+  })
