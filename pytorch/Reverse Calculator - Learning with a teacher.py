@@ -1,4 +1,4 @@
-# Loss with this neural network configuration: 🤯loss: ~0.0129🤯
+# Loss with this neural network configuration: 🤯loss: ~0.0061🤯
 # The algorithm will predict the operation (one of: + - / *)
 #   produced by two numbers using the result of the calculation.
 # To do this, enter 3 numbers (positive or negative integers).
@@ -49,7 +49,7 @@ def build_model():
 
   model.compile(
     optimizer=keras.optimizers.Adam(learning_rate=learning_rate),
-    loss=keras.losses.MeanSquaredError(),
+    loss=keras.losses.Huber(),
     metrics=[
       keras.metrics.MeanSquaredError(),
     ],
