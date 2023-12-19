@@ -1,4 +1,4 @@
-# Loss with this neural network configuration: 🤯loss: 0.0135🤯
+# Loss with this neural network configuration: 🤯loss: ~0.0129🤯
 # The algorithm will predict the operation (one of: + - / *)
 #   produced by two numbers using the result of the calculation.
 # To do this, enter 3 numbers (positive or negative integers).
@@ -22,37 +22,43 @@ print('Data generation and training preparation...')
 
 number_low = 1
 number_high = 10 # not including, i.e. up to 9
-signs = ['+', '*', '-', '/']
-
-learning_rate = 0.01
-batch_size = 15**2 # default: 32
-train_sets = 2_000_000
-units = 8**2
-epochs = 2
-hidden = 3
-passages = 1
+signs = ['+', '*', '-', '/'] # link to calc:ops
 reward = 1.0
 
-model = keras.Sequential()
+hidden = 3
+units = 8**2
+epochs = 2
+learning_rate = 0.01
+batch_size = 15**2
+train_sets = 2_000_000
 
-for _ in range(hidden):
+
+def build_model():
+  model = keras.Sequential()
+
+  for _ in range(hidden):
+    model.add(keras.layers.Dense(
+      units=units,
+      activation=keras.activations.relu,
+    ))
+
   model.add(keras.layers.Dense(
-    units=units,
-    activation=keras.activations.relu,
+    units=len(signs),
+    activation=keras.activations.softmax,
   ))
 
-model.add(keras.layers.Dense(
-  units=len(signs),
-  activation=keras.activations.softmax,
-))
+  model.compile(
+    optimizer=keras.optimizers.Adam(learning_rate=learning_rate),
+    loss=keras.losses.MeanSquaredError(),
+    metrics=[
+      keras.metrics.MeanSquaredError(),
+    ],
+  )
 
-model.compile(
-  optimizer=keras.optimizers.Adam(learning_rate=learning_rate),
-  loss=keras.losses.MeanSquaredError(),
-  metrics=[
-    keras.metrics.MeanSquaredError(),
-  ],
-)
+  return model
+
+
+model = build_model()
 
 
 def get_random_number():
@@ -108,14 +114,15 @@ def gen_train_sets():
   )
 
 
-for _ in range(passages):
-  inputs, labels = gen_train_sets()
-  history = model.fit(
-    inputs,
-    labels,
-    batch_size=batch_size,
-    epochs=epochs,
-  )
+inputs, labels = gen_train_sets()
+history = model.fit(
+  inputs,
+  labels,
+  batch_size=batch_size,
+  epochs=epochs,
+  # 0 = silent, 1 = progress bar, 2 = one line per epoch
+  verbose=1,
+)
 
 model.summary()
 

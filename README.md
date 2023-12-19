@@ -14,7 +14,7 @@
 
 [ODS.ai: Deep Reinforcement Learning](https://ods.ai/tracks/drlcourse23)
 
-[Grokking Deep Reinforcement Learning - Miguel Morales](https://www.amazon.com/Grokking-Reinforcement-Learning-Miguel-Morales/dp/1617295450)
+[Грокаем глубокое обучение с подкреплением | Моралес Мигель](https://www.ozon.ru/product/grokaem-glubokoe-obuchenie-s-podkrepleniem-morales-migel-1015205872/)
 
 ### License
 [MIT](LICENSE)
