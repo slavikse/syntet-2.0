@@ -1,16 +1,22 @@
+# Loss with this neural network configuration: 🤯loss: 0.0135🤯
+# The algorithm will predict the operation (one of: + - / *)
+#   produced by two numbers using the result of the calculation.
+# To do this, enter 3 numbers (positive or negative integers).
+# Examples:
+# 4 6 10 - expect addition (+), 4+6=10.
+# 4 3 1 - expect minus (-), 4-3=1
+# 20 10 200 - expect multiplication (*), 20*10=200.
+# 6 3 3 - expect division (/), 6/3=3
+# 4 -6 10 - expect minus (-), 4+6=10.
+# -4 3 -7 - expect minus (-), -4-3=-7
+# 20 -10 -200 - expect multiplication (*), 20*(-10)=-200.
+# -6 3 -3 - expect division (/), -6/3=-3
+# -6 -3 -3 - expect minus (-), -6-(-3)=-3
+
 import os
 os.environ["KERAS_BACKEND"] = "torch"
 import keras
 import numpy as np
-
-# The algorithm will predict the operation (one of: + - / *)
-#   produced by two numbers using the result of the calculation.
-# To do this, enter 3 numbers (positive integers).
-# Examples:
-# 4 6 10 - predicts addition (+), 4+6=10.
-# 4 3 1 - predicts minus (-), 4-3=1
-# 20 10 200 - predicts multiplication (*), 20*10=200.
-# 6 3 3 - predicts division (/), 6/3=3
 
 print('Data generation and training preparation...')
 
@@ -19,29 +25,21 @@ number_high = 10 # not including, i.e. up to 9
 signs = ['+', '*', '-', '/']
 
 learning_rate = 0.01
-batch_size = 64 # default: 32
-train_sets = 800_000
-units = 6**2
-epochs = 3
-dropout = 0.2
+batch_size = 15**2 # default: 32
+train_sets = 2_000_000
+units = 8**2
+epochs = 2
+hidden = 3
 passages = 1
 reward = 1.0
 
 model = keras.Sequential()
 
-model.add(keras.layers.Dense(
-  units=units,
-  activation=keras.activations.relu,
-))
-
-model.add(keras.layers.Dropout(dropout))
-
-model.add(keras.layers.Dense(
-  units=units,
-  activation=keras.activations.relu,
-))
-
-model.add(keras.layers.Dropout(dropout))
+for _ in range(hidden):
+  model.add(keras.layers.Dense(
+    units=units,
+    activation=keras.activations.relu,
+  ))
 
 model.add(keras.layers.Dense(
   units=len(signs),
@@ -58,7 +56,9 @@ model.compile(
 
 
 def get_random_number():
-  return np.random.randint(number_low, number_high)
+  number = np.random.randint(number_low, number_high)
+  sign = np.random.choice([-1, 1])
+  return number * sign
 
 
 def get_sign():
@@ -144,6 +144,36 @@ data = [
     'y': 4,
     'result': 2,
   },
+  {
+    'sign': '+',
+    'x': -3,
+    'y': 2,
+    'result': -1,
+  },
+  {
+    'sign': '-',
+    'x': 8,
+    'y': -5,
+    'result': 13,
+  },
+  {
+    'sign': '-',
+    'x': -8,
+    'y': -5,
+    'result': -3,
+  },
+  {
+    'sign': '*',
+    'x': -2,
+    'y': 3,
+    'result': -6,
+  },
+  {
+    'sign': '/',
+    'x': 8,
+    'y': -4,
+    'result': -2,
+  },
   # Below is the data that ML could not see - the training sets are limited to the number 9 for x,y.
   {
     'sign': '+',
@@ -181,6 +211,42 @@ data = [
     'y': 8314,
     'result': 10_533_838,
   },
+  {
+    'sign': '+',
+    'x': 12,
+    'y': -14,
+    'result': -2,
+  },
+  {
+    'sign': '*',
+    'x': -14,
+    'y': 16,
+    'result': -224,
+  },
+  {
+    'sign': '-',
+    'x': -30,
+    'y': 15,
+    'result': -45,
+  },
+  {
+    'sign': '/',
+    'x': -60,
+    'y': 30,
+    'result': -2,
+  },
+  {
+    'sign': '+',
+    'x': -1267,
+    'y': 8589,
+    'result': 7322,
+  },
+  {
+    'sign': '*',
+    'x': 1267,
+    'y': -8314,
+    'result': -10_533_838,
+  },
 ]
 
 def predict(val):
@@ -201,9 +267,9 @@ for val in data:
 
 while True:
   print('enter via enter...')
-  x = int(input('Enter a positive integer: '))
-  y = int(input('Enter a positive integer: '))
-  result = int(input('Enter result: '))
+  x = int(input('Enter a positive or negative integer: '))
+  y = int(input('Enter a positive or negative integer: '))
+  result = int(input('Enter result operation: '))
 
   predict({
     'sign': '?',

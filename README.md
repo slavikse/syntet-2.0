@@ -1,7 +1,7 @@
 ![logo](images/logo.png)
 ![stat](https://mc.yandex.ru/watch/64632112?github_syntet)
 
-# ✌️ PyTorch & TensorFlow
+# ✌️ PyTorch
 
 ## 🧙‍♂️ Completed
 [Reverse Calculator - Learning with a teacher](https://github.com/slavikse/syntet-2.0/blob/main/pytorch/Reverse%20Calculator%20-%20Learning%20with%20a%20teacher.py)
