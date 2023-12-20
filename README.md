@@ -4,10 +4,11 @@
 # ✌️ PyTorch
 
 ## 🧙‍♂️ Completed
-[Reverse Calculator - Learning with a teacher](https://github.com/slavikse/syntet-2.0/blob/main/pytorch/Reverse%20Calculator%20-%20Learning%20with%20a%20teacher.py)
+Reverse Calculator - Learning with a teacher: [github](https://github.com/slavikse/syntet-2.0/blob/main/pytorch/Learning%20with%20a%20teacher/Reverse%20Calculator.py) · [youtube](https://youtu.be/6hgoZKbPnOU)
+
 
 ### 🧠 Not Completed
-[neighbors-8](https://github.com/slavikse/syntet-2.0/tree/main/tensorflow.js/neighbors-8)
+neighbors-8: [github](https://github.com/slavikse/syntet-2.0/tree/main/tensorflow.js/neighbors-8)
 
 # 👨‍🏫 Knowledge
 [CS 285: Deep Reinforcement Learning Fall 2022 (UC Berkeley)](https://www.youtube.com/playlist?list=PL_iWQOsE6TfX7MaC6C3HcdOf1g337dlC9)
