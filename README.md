@@ -4,11 +4,14 @@
 # ✌️ PyTorch
 
 ## 🧙‍♂️ Completed
-Reverse Calculator - Learning with a teacher: [github](https://github.com/slavikse/syntet-2.0/blob/main/pytorch/learning-with-a-teacher/reverse-calculator.py) · [youtube](https://youtu.be/6hgoZKbPnOU)
+### Learning With a Teacher:
+<b>Reverse Calculator</b> - [github](https://github.com/slavikse/syntet-2.0/blob/main/pytorch/learning-with-a-teacher/reverse-calculator.py) · [youtube](https://youtu.be/6hgoZKbPnOU)
 
+### Reinforcement Learning:
+<b>Cart Pole</b> - [github](https://github.com/slavikse/syntet-2.0/blob/main/pytorch/reinforcement-learning/cart-pole.py) · [youtube](https://youtu.be/h9_tGiyBYZ0)
 
 ### 🧠 Not Completed
-neighbors-8: [github](https://github.com/slavikse/syntet-2.0/tree/main/tensorflow.js/neighbors-8)
+<b>neighbors-8</b> - [github](https://github.com/slavikse/syntet-2.0/tree/main/tensorflow.js/neighbors-8)
 
 # 👨‍🏫 Knowledge
 [CS 285: Deep Reinforcement Learning Fall 2022 (UC Berkeley)](https://www.youtube.com/playlist?list=PL_iWQOsE6TfX7MaC6C3HcdOf1g337dlC9)

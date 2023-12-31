@@ -116,8 +116,8 @@ def gen_train_sets():
 
 inputs, labels = gen_train_sets()
 history = model.fit(
-  inputs,
-  labels,
+  x=inputs,
+  y=labels,
   batch_size=batch_size,
   epochs=epochs,
   # 0 = silent, 1 = progress bar, 2 = one line per epoch
@@ -262,7 +262,7 @@ def predict(val):
     val['y'],
     val['result'],
   ]])
-  predictions = model.predict(x_test)
+  predictions = model.predict(x=x_test)
   sign = signs[predictions.argmax()]
 
   print('expect:', val['sign'], 'predict:', sign, '#', val['x'], sign, val['y'], '=', val['result'])
