@@ -8,6 +8,8 @@
 <b>Reverse Calculator</b> - [github](https://github.com/slavikse/syntet-2.0/blob/main/pytorch/learning-with-a-teacher/reverse-calculator.py) · [youtube](https://youtu.be/6hgoZKbPnOU)
 
 ### Reinforcement Learning:
+<b>Acrobot</b> - [github](https://github.com/slavikse/syntet-2.0/blob/main/pytorch/reinforcement-learning/acrobot.py) · [youtube](https://youtu.be/n2YujVE_BUw)
+
 <b>Cart Pole</b> - [github](https://github.com/slavikse/syntet-2.0/blob/main/pytorch/reinforcement-learning/cart-pole.py) · [youtube](https://youtu.be/h9_tGiyBYZ0)
 
 ### 🧠 Not Completed
