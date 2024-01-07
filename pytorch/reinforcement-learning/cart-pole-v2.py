@@ -10,12 +10,12 @@ CarlPole(
   env_name='CartPole-v1',
   units_output=2,
 
-  layers_hidden=3,
-  units_hidden=30,
+  layers_hidden=4,
+  units_hidden=200,
   learning_rate=1e-3,
 
   reward_basic=0.5,
-  reward_penalty=0,
+  reward_penalty=-1,
 
   exploitation=True,
 )

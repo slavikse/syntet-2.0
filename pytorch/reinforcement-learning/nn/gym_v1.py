@@ -31,6 +31,7 @@ class NeuralNetwork:
 
     reward_basic=0,
     reward_penalty=0,
+    reward_episode_start=1,
 
     batch_size=8,
     epochs=3,
@@ -56,6 +57,7 @@ class NeuralNetwork:
 
     self.reward_basic = reward_basic
     self.reward_penalty = reward_penalty
+    self.reward_episode_start = reward_episode_start
 
     self.batch_size = batch_size
     self.epochs = epochs
@@ -161,6 +163,11 @@ class NeuralNetwork:
     self.labels = []
     self.epsilon = self.epsilon_start
 
+    if self.early_convergence:
+      self.reward_episode = self.reward_episode_start
+    else:
+      self.reward_episode = 0
+
     if self.use_prev_state:
       self.prev_state, _ = self.env.reset()
       action = self.random_step()
@@ -173,15 +180,16 @@ class NeuralNetwork:
     episodes = self.next_episodes()
 
     for _ in range(episodes):
+      self.calc_epsilon()
       action = self.next_action()
       self.save_prev_state()
-      self.state, reward, terminated, truncated, _ = self.env.step(action)
+      self.state, _, terminated, truncated, _ = self.env.step(action)
       is_end = terminated or truncated
 
       if is_end and self.exploitation:
         break
       else:
-        self.finalize(is_end, action, reward)
+        self.finalize(is_end, action)
 
     self.replay()
 
@@ -196,12 +204,15 @@ class NeuralNetwork:
     raise Exception('The mod is not correct!')
 
 
+  def calc_epsilon(self):
+    self.epsilon = max(self.epsilon_end, self.epsilon_decay * self.epsilon)
+
+
   def next_action(self):
     if self.render_mode == 'rgb_array'\
     and random.random() < self.researcher:
       return self.random_step()
 
-    self.epsilon = max(self.epsilon_end, self.epsilon_decay * self.epsilon)
     return self.predict()
 
 
@@ -228,20 +239,16 @@ class NeuralNetwork:
       self.prev_state = np.array(self.state, copy=True)
 
 
-  def finalize(self, is_end, action, reward):
+  def finalize(self, is_end, action):
     if is_end:
-      self.finalize_penalty(action)
+      self.collect(action, self.reward_penalty)
+      self.fit_model()
+      self.state_reset()
     else:
-      self.finalize_episode(action, reward)
+      self.collect(action, self.reward_basic)
 
 
-  def finalize_penalty(self, action):
-    self.finalize_episode(action, self.reward_penalty)
-    self.fit_model()
-    self.state_reset()
-
-
-  def finalize_episode(self, action, reward):
+  def collect(self, action, reward):
     state = self.current_state()
     self.inputs.append(state)
 
@@ -256,10 +263,13 @@ class NeuralNetwork:
       rewards.append(self.reward_basic)
 
     if self.early_convergence:
-      rewards[action] = self.epsilon * reward
+      discount = self.epsilon * reward
+      self.reward_episode -= discount
     else:
-      rewards[action] = (1 - self.epsilon) * reward
+      discount = (1 - self.epsilon) * reward
+      self.reward_episode += discount
 
+    rewards[action] = self.reward_episode
     return rewards
 
 
