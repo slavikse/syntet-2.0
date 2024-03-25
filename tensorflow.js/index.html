@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, shrink-to-fit=no"
+  >
+  <link
+    rel="icon"
+    href="./images/favicon.png"
+  >
+  <title>Syntet-2.0</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+<div style="user-select: none">
+  Execution delay is active (change by click):
+  <span id="is-execution-delay" style="display: inline-block; width: 32px; color: gold">false</span>
+</div>
+
+<canvas id="canvas" width="300" height="300" style="margin-top: 40px"></canvas>
+
+<!-- TODO подключить -->
+<!-- <script defer src="tf-4.10.0.js"></script> -->
+
+<script defer src="utils.js"></script>
+
+<script defer src="neighbors-8/neighbors-8-state.js"></script>
+<script defer src="neighbors-8/neighbors-8-render.js"></script>
+<script defer src="neighbors-8/neighbors-8-rl.js"></script>
+<script defer src="neighbors-8/neighbors-8-play.js"></script>
+
+<script defer src="index.js"></script>
+</body>
+</html>

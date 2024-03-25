@@ -1,0 +1,10 @@
+# Path to images
+path: '.'
+train: 'train/images/'
+test: 'test/images/'
+val: 'valid/images/'
+
+# Classes
+names:
+  0: 'Green'
+  1: 'White'

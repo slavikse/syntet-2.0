@@ -1,0 +1,19 @@
+{
+  "name": "yolo-arduino",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "server": "python apps/server.py",
+    "client": "nodemon apps/client",
+    "client-debug": "node --inspect apps/client",
+    "client-tunnel": "lt --port 9000",
+    "server-tunnel": "lt --port 8000"
+  },
+  "author": "slavikse <slavikse@ya.ru>",
+  "license": "MIT",
+  "dependencies": {
+    "johnny-five": "^2.1.0",
+    "localtunnel": "^2.0.2",
+    "nodemon": "^3.0.3"
+  }
+}
