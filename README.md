@@ -6,7 +6,7 @@
 
 ### Robotics & Machine Learning:
 
-<b>Robohand - Arduino ESP8622</b> - [github](---) · [youtube](https://youtu.be/yoIU3FXAOzE)
+<b>Robohand - Arduino ESP8622</b> - [github 1](https://github.com/slavikse/syntet-2.0/blob/main/arduino/arduino_esp8266_robohand/arduino_esp8266_robohand.ino) · [github 2](https://github.com/slavikse/syntet-2.0/tree/main/yolo-arduino/apps) · [youtube](https://youtu.be/yoIU3FXAOzE)
 
 <b>Arduino, esp8266, motors</b> -
 [github](https://github.com/slavikse/syntet-2.0/blob/main/arduino/arduino_uno_wifi_esp8266_server_client_motor_software_serial/arduino_uno_wifi_esp8266_server_client_motor_software_serial.ino)
