@@ -8,17 +8,12 @@
 
 <b>Robohand - Arduino ESP8622</b> - [github 1](https://github.com/slavikse/syntet-2.0/blob/main/arduino/arduino_esp8266_robohand/arduino_esp8266_robohand.ino) · [github 2](https://github.com/slavikse/syntet-2.0/tree/main/yolo-arduino/apps) · [youtube](https://youtu.be/yoIU3FXAOzE)
 
-<b>Arduino, esp8266, motors</b> -
-[github](https://github.com/slavikse/syntet-2.0/blob/main/arduino/arduino_uno_wifi_esp8266_server_client_motor_software_serial/arduino_uno_wifi_esp8266_server_client_motor_software_serial.ino)
+<b>Arduino, esp8266, motors</b> - [github](https://github.com/slavikse/syntet-2.0/blob/main/arduino/arduino_esp8266_motors/arduino_esp8266_motors.ino)
 · [youtube](https://youtu.be/cZ1LhVit27Y)
 
-<b>Yolo (CV), Arduino (2 Led), Web UI (Control) [v1]</b> -
-[github](https://github.com/slavikse/syntet-2.0/tree/main/pytorch/yolo-arduino) ·
-[youtube](https://youtu.be/VQwsumZwnMw)
+<b>Yolo (CV), Arduino (2 Led), Web UI (Control) [v1]</b> - [youtube](https://youtu.be/VQwsumZwnMw)
 
-<b>Yolo (CV), Arduino (2 Led), Mobile (on web Control) [v2]</b> -
-[github](https://github.com/slavikse/syntet-2.0/tree/main/pytorch/yolo-arduino) ·
-[youtube](https://youtu.be/OvMCiCjR7J8?list=PLOu421ls4259zE5vgyylrjlkBodTslllF)
+<b>Yolo (CV), Arduino (2 Led), Mobile (on web Control) [v2]</b> - [youtube](https://youtu.be/OvMCiCjR7J8?list=PLOu421ls4259zE5vgyylrjlkBodTslllF)
 
 ### Learning With a Teacher:
 
